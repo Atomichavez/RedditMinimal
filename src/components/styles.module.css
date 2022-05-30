@@ -1,0 +1,19 @@
+.nav {
+  height: 40px;
+  background-color: #eeeeee
+}
+
+.feed, .subs {
+  background-color: #eeeeee;
+  margin: 10px;
+}
+
+/* .mainContainer {
+  max-width: 1240px;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 20px;
+  border: 1px solid #e151e1;
+  margin: 0 auto;
+} */
