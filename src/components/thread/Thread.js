@@ -1,13 +1,15 @@
 import { useSelector } from 'react-redux'
 import { selectResponse } from '../feed/feedSlice'
+import styles from '../styles.module.css'
 
-export const Thread = (id) => {
+export const Thread = ({id}) => {
   const threads = useSelector(selectResponse)
-  const thread = threads.filter(obj => obj.id === Object.values(id)[0])
-  console.log(id)
+  const thread = threads.find(obj => obj.id === id)
+  
   return(
-    <div>
-      <p>{thread[0].title}</p>
+    <div className={styles.thread}>
+      <p>{thread.title}</p>
+      <p>{thread.author} {thread.subreddit} {thread.num_comments}</p>
     </div>
   )
 }

@@ -78,3 +78,15 @@ https://stackoverflow.com/a/63617416/13594641
   )
 }
 ```
+## 01/06/22
+-me esta saliendo este error en `<Feed>`
+```
+Warning: Each child in a list should have a unique "key" prop. Check the render method of `Feed`.
+```
+- logre solucionar el problema de ayer, los componentes de react SIEMPRE le pasan a los childs Objects. Por mas que le estaba pasando un string, el child lo recibia como object. la solucion fue hacer deconstructing al recibir el prop en el child `({id})`
+- lo que sigue es implementar routers para que funcionen los botones:
+  - all
+  - hot
+  - new
+  - rising
+  - top

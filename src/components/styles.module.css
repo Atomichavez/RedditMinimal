@@ -8,6 +8,11 @@
   margin: 10px;
 }
 
+.thread {
+  border: solid 1px #ff00ff;
+  margin: 10px auto
+}
+
 /* .mainContainer {
   max-width: 1240px;
   width: 90%;

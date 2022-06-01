@@ -19,14 +19,13 @@ export const Feed = () => {
   if(isLoadingSearch===true) return <div>Loading...</div>
   if(failedToLoadSearch===true) return <div>Error loading feed</div>
   if(!feedResponse) return null
-  console.log(feedResponse)
+
   return(
     <div className={styles.feed}>
-      {feedResponse.map(thread => {
-        console.log(thread)
+      {feedResponse.map(({id}) => {
         return(
           <div>
-            <Thread id={thread.id}/>
+            <Thread key={id} id={id}/>
           </div>
         )
       })}
