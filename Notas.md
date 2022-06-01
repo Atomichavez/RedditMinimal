@@ -10,3 +10,71 @@ https://stackoverflow.com/a/63617416/13594641
 - el state del search se lo pase al componente `<Feed>` y lo mostre en un `<p>`
 - avance muy lento porque retome los cursos de *Async Actions with Middleware and Thunks* en Codecademy
 - estoy pendiente de meter un action async para el fetch del feed, estoy usando de base el *Redux News Reader* files: `commentsSlice.js` y `Comments.js`. Revisar funcion `loadCommentsForArticle.js`
+
+## 28/05/22
+- suffering, intentando hacer un mockup del `createAsyncThunk` con un setTimeOut y nada mas no pude
+
+## 29/05/22
+- approach diferente, hice un commit y me fui directo a usar un `fetch` del json de reddit
+- logre actializar el state global con la info del `fetch` y agregar un `<p>` al componente `<Feed>` con texto que salio del state
+- no se como hacerle para que no corra el `useEffect` de `Feed.js` cuando se inicializa la pagina
+- actualice el status de feed con un array personalizado con la info que necesito de los threads
+- me quede en el `return()` de `<Feed>` intentando imprimir los diferentes threads
+
+## 30/05/22
+-no entiendo porque esto no jala en `<Thread>`
+ ```
+ export const Thread = (id) => {
+  const threads = useSelector(selectResponse)
+  const thread = threads.filter(obj => obj.id === id)
+  return(
+    <div>
+      <p>{thread.title}</p>
+    </div>
+  )
+}
+```
+-ramon me ayudo a pasarle al child el ID como string en `<Feed>`:
+```
+ return(
+    <div className={styles.feed}>
+      {feedResponse.map(({id}) => {
+        console.log(id)
+        return(
+          <div>
+            <Thread id={id}/>
+          </div>
+        )
+      })}
+    </div>
+  )
+```
+-asi es como lo tenia antes y si jalaba pero con este otro child
+`<Feed>`
+```
+  return(
+    <div className={styles.feed}>
+      {feedResponse.map(thread => {
+        console.log(thread)
+        return(
+          <div>
+            <Thread id={thread.id}/>
+          </div>
+        )
+      })}
+    </div>
+  )
+  ```
+  `<Thread>`
+  ```
+  export const Thread = (id) => {
+  const threads = useSelector(selectResponse)
+  const thread = threads.filter(obj => obj.id === Object.values(id)[0])
+  console.log(id)
+  return(
+    <div>
+      <p>{thread[0].title}</p>
+    </div>
+  )
+}
+```

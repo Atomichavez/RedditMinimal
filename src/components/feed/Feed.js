@@ -4,6 +4,7 @@ import styles from '../styles.module.css'
 import { searchSelector } from '../search/searchSlice'
 // eslint-disable-next-line
 import { SearchThunk, selectResponse, failedToLoadSearch, isLoadingSearch } from './feedSlice'
+import { Thread } from '../thread/Thread'
 
 export const Feed = () => {
   const dispatch = useDispatch()
@@ -11,24 +12,24 @@ export const Feed = () => {
   const feedResponse = useSelector(selectResponse)
   
   useEffect(() => {
-    console.log(SearchThunk(searchTerm))
     dispatch(SearchThunk(searchTerm)) 
-  }, [searchTerm])
+  }, [searchTerm, dispatch])
 
-  let feed = ''
-  if(isLoadingSearch===true) {
-    feed = 'Loading'
-  } else if(failedToLoadSearch===true) {
-    feed = 'Error Loading'
-  } else if (feedResponse) {
-    feed = feedResponse
-  } else {
-    feed = 'nothing to show'
-  }
-  
+  //Estos ifs no estan funcionando
+  if(isLoadingSearch===true) return <div>Loading...</div>
+  if(failedToLoadSearch===true) return <div>Error loading feed</div>
+  if(!feedResponse) return null
+  console.log(feedResponse)
   return(
     <div className={styles.feed}>
-      <p>{feed}</p>
+      {feedResponse.map(thread => {
+        console.log(thread)
+        return(
+          <div>
+            <Thread id={thread.id}/>
+          </div>
+        )
+      })}
     </div>
   )
 }
