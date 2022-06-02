@@ -78,7 +78,7 @@ https://stackoverflow.com/a/63617416/13594641
   )
 }
 ```
-## 01/06/22
+## 31/05/22
 -me esta saliendo este error en `<Feed>`
 ```
 Warning: Each child in a list should have a unique "key" prop. Check the render method of `Feed`.
@@ -90,3 +90,24 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
   - new
   - rising
   - top
+
+## 01/06/22
+- ando confundidazo con los routers. creo que debo hacer en `<FeedSlice>` un thunk nuevo para agregar los fetches de los homepages *(all, rising, hot etc)* y en el `<Feed>` agregar otro `<useEffect>` con `useLocation`?
+- ***MILESTONE: dejar funcionando el `<Feed>` con los homepages***
+- aqui explican como hacer que se scrolle top cada que le picas a un nuevo route: https://www.kindacode.com/article/react-router-uselocation-hook-tutorial-and-examples/
+- el `useLocation` va solo en el `<Feed>` y hacemos un dispatch con el path como argument
+- esto lo tengo en los dos thunks, habra que ver como lo reciclo
+  ```
+      return {
+        id: thread.data.id,
+        title: thread.data.title,
+        subreddit: thread.data.subreddit,
+        author: thread.data.author,
+        thumbnail: thread.data.thumbnail,
+        created: thread.data.created,
+        score: thread.data.score,
+        num_comments: thread.data.num_comments
+      }
+  ```
+- de aqui saque como usar el `useLocation` + `useState` + `useEffect` en el `<Feed>`: https://stackoverflow.com/questions/65413590/use-of-useeffect-with-uselocation
+- ya funciona *hot* y *rising* pero pasa algo raro cuando selecciono *rising* dura menos de 1 segundo y se vuelve a desplegar *hot* revisar eso, de hecho ya lo probe mas y si alterno entre picarle a *hot* y *rising* el texto alterna entre 3 variantes, weird...

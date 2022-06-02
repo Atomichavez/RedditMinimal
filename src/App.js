@@ -7,20 +7,27 @@ import { Search } from './components/search/Search'
 import { Feed } from './components/feed/Feed'
 import { Subs } from './components/subs/Subs'
 import styles from './components/styles.module.css'
+import { BrowserRouter as Router, Switch, Route, NavLink, useRouteMatch } from 'react-router-dom'
+import { routes } from './app/routes'
 
 function App() {
   return (
-    <div className="App">
+    <Router>
+      <div className="App">
       <Nav/>
-      <div className={styles.mainContainer}>
-        <Search/>
-        <Subs/>
-        <Feed/>
+        <div className={styles.mainContainer}>
+          <Search/>
+          <Subs/>
+          <NavLink to= {routes.all()}>ALL</NavLink>
+          <NavLink to= {routes.hot()}>HOT</NavLink>
+          <NavLink to= {routes.rising()}>RISING</NavLink>
+          <Feed/>
+        </div>
+        {/* <header className="App-header">
+          <Counter />
+        </header> */}
       </div>
-      <header className="App-header">
-        <Counter />
-      </header>
-    </div>
+    </Router>
   );
 }
 
