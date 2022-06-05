@@ -111,3 +111,41 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
   ```
 - de aqui saque como usar el `useLocation` + `useState` + `useEffect` en el `<Feed>`: https://stackoverflow.com/questions/65413590/use-of-useeffect-with-uselocation
 - ya funciona *hot* y *rising* pero pasa algo raro cuando selecciono *rising* dura menos de 1 segundo y se vuelve a desplegar *hot* revisar eso, de hecho ya lo probe mas y si alterno entre picarle a *hot* y *rising* el texto alterna entre 3 variantes, weird...
+
+## 04/06/22
+- ~~tengo un problema con el **reddit/all**, al hacer un request del feed con router para cualquier otra categoria se generan dos actions, una para la categoria seleccionada y la otra para **all**. creo que usando router switch para que solo se genere una vez puedo resolverlo~~ solucionado con `<NavLink exact to=''>`
+- al generar homeThunk action, cuando ya hay un feed loaded, genera un action para el loaded feed y para el requested feed. A de ser un problema del `useEffect()`. Al inicializar el app hace 5 requests: 
+  - 2 search requests 
+  - 3 homethunk
+- vi aqui una solucion para no correr el useEffect en el first render, pero no funciono https://dev.to/calebbenjin/how-to-prevent-useeffect-from-running-on-initial-render-in-react-22a8 
+
+  ```
+  import { useState, useRef } from 'react'
+
+  function PublicFetch() {
+    const [data, setData] = useState();
+    const isMounted = useRef(false)
+
+    // fetching the data with useEffect
+    useEffect(() => {
+    const res = await fetch(`/api/some-url`)
+      const data = await res.json()
+
+      if (res.ok) {
+        setData(data)
+      } else {
+        setData(null)
+      }
+    }, []);
+
+    // Do something else with the data
+    useEffect(() => {
+      if(isMounted.current){
+        doSomething(data);
+      } else {
+      isMounted.current = true;
+      }
+
+    }, [data]);
+  }
+  ```

@@ -18,9 +18,11 @@ function App() {
         <div className={styles.mainContainer}>
           <Search/>
           <Subs/>
-          <NavLink to= {routes.all()}>ALL</NavLink>
-          <NavLink to= {routes.hot()}>HOT</NavLink>
-          <NavLink to= {routes.rising()}>RISING</NavLink>
+          <NavLink to= {routes.all()} end>ALL </NavLink>
+          <NavLink to= {routes.hot()}>HOT </NavLink>
+          <NavLink to= {routes.rising()}>RISING </NavLink>
+          <NavLink to= {routes.top()}>TOP </NavLink>
+          <NavLink to= {routes.new()}>NEW </NavLink>
           <Feed/>
         </div>
         {/* <header className="App-header">

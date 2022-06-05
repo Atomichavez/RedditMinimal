@@ -46,41 +46,41 @@ export const feedSlice = createSlice({
   name: 'feed',
   initialState: {
     feedResponse: '',
-    isLoadingSearch: false,
-    failedToLoadSearch: false
+    isLoadingFeed: false,
+    failedToLoadFeed: false
   },
   extraReducers: (builder) => {
     builder
       .addCase(SearchThunk.pending, (state) => {
-        state.isLoadingSearch = true
-        state.failedToLoadSearch = false
+        state.isLoadingFeed = true
+        state.failedToLoadFeed = false
       })
       .addCase(SearchThunk.fulfilled, (state, action) => {
-        state.isLoadingSearch = false
-        state.failedToLoadSearch = false
+        state.isLoadingFeed = false
+        state.failedToLoadFeed = false
         state.feedResponse = action.payload
       })
       .addCase(SearchThunk.rejected, (state) => {
-        state.isLoadingSearch = false
-        state.failedToLoadSearch = true
+        state.isLoadingFeed = false
+        state.failedToLoadFeed = true
       })
       .addCase(homeThunk.pending, (state) => {
-        state.isLoadingSearch = true
-        state.failedToLoadSearch = false
+        state.isLoadingFeed = true
+        state.failedToLoadFeed = false
       })
       .addCase(homeThunk.fulfilled, (state, action) => {
-        state.isLoadingSearch = false
-        state.failedToLoadSearch = false
+        state.isLoadingFeed = false
+        state.failedToLoadFeed = false
         state.feedResponse = action.payload
       })
       .addCase(homeThunk.rejected, (state) => {
-        state.isLoadingSearch = false
-        state.failedToLoadSearch = true
+        state.isLoadingFeed = false
+        state.failedToLoadFeed = true
       })
   }
 })
 
 export const selectFeedResponse = (state) => state.feed.feedResponse
-export const isLoadingSearch = (state) => state.feed.isLoadingSearch
-export const failedToLoadSearch = (state) => state.feed.failedToLoadSearch
+export const isLoadingFeed = (state) => state.feed.isLoadingFeed
+export const failedToLoadFeed = (state) => state.feed.failedToLoadFeed
 export default feedSlice.reducer

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styles from '../styles.module.css'
 import { searchSelector } from '../search/searchSlice'
 // eslint-disable-next-line
-import { SearchThunk, selectFeedResponse, failedToLoadSearch, isLoadingSearch } from './feedSlice'
+import { SearchThunk, selectFeedResponse, failedToLoadFeed, isLoadingFeed } from './feedSlice'
 import { useLocation } from 'react-router-dom'
 import { Thread } from '../thread/Thread'
 import { homeThunk } from './feedSlice'
@@ -15,8 +15,18 @@ export const Feed = () => {
   const location = useLocation()
   const [currentPath, setCurrentPath] = useState('')
 
+  // const useDidUpdateEffect = () => {
+  //   const didMountRef = useRef(false);
+  //   useEffect(() => {
+  //     if(didMountRef) {
+  //       dispatch(SearchThunk(searchTerm))
+  //     }
+  //     didMountRef.current = true
+  //   }, [searchTerm, dispatch]);
+  // }
+
   useEffect(() => {
-    dispatch(SearchThunk(searchTerm)) 
+    dispatch(SearchThunk(searchTerm))
   }, [searchTerm, dispatch])
 
   useEffect(() => {
@@ -25,8 +35,8 @@ export const Feed = () => {
   }, [location, dispatch, currentPath])
 
   //Estos ifs no estan funcionando
-  if(isLoadingSearch===true) return <div>Loading...</div>
-  if(failedToLoadSearch===true) return <div>Error loading feed</div>
+  if(isLoadingFeed===true) return <div>Loading...</div>
+  if(failedToLoadFeed===true) return <div>Error loading feed</div>
   if(!feedResponse) return null
 
   return(
