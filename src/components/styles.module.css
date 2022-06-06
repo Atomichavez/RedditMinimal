@@ -3,14 +3,27 @@
   background-color: #eeeeee
 }
 
-.feed, .subs {
+.feed, .subs, .popular {
   background-color: #eeeeee;
-  margin: 10px;
+  margin: 10px auto;
+  max-width: 1200px;
+
 }
 
 .thread {
   border: solid 1px #ff00ff;
   margin: 10px auto
+}
+
+.subTitle {
+  display: inline;
+  padding: 0px 10px;
+}
+
+.subs, .popular {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 /* .mainContainer {

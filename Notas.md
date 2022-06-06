@@ -149,3 +149,45 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
     }, [data]);
   }
   ```
+
+- buena referencia de como no correr `useEffect` `onMount` : https://dev.to/hnrq/useupdateeffect-useeffect-that-doesn-t-run-on-mount-8l6
+- hice un custom hook para evitar el `useEffect` `onMount` mas no jala del todo bien, aun se corren 2 actions al inicio
+
+## 05/06/22
+
+- dejare pendiente arreglar lo del dia anterior.
+- ***MILESTONE: subreddits***
+- decidi utilizar el json de reddit.com/subreddits, no se que criterio usan para sortearlos pero da igual. habra que resolver la paginacion...
+- voy a almacenar el listado de SUBS en el global state
+- pendientes por resolver:
+  - paginacion de subs
+  - first render `useEffect` deberia ser ignorado por `SearchThunk` y `homeThunk`
+  - los states de `isLoading` y `failedToLoad` de `Feed` y `Search`
+- la paginacion de subs 
+  - https://www.reddit.com/subreddits/?count=25&after=t5_2qo4s
+  - https://www.reddit.com/subreddits/?count=50&after=t5_2r5rp
+  - https://www.reddit.com/subreddits/?count=75&after=t5_2ti4h
+- quiero reutilizar `SubThunk` para los primeros 100 subs y para los subsecuentes que saldran con el `<button>`, es con el query `?limit=100&after=${sub.name}` tengo que ver como diferencio el first render de los updates...
+- con el boton de **More** ya se piden los proximos 100 subs, solo que no logro hacer que se agreguen al state actual, si no que hacen un override. en el `subsSlice.js` en el `.addCase(Subthunk.fulfilled)` estoy intentando hacer un `.contac` pero para algo bien raro en consola:
+  ```
+  95: Proxy {}
+  96: Proxy {}
+  97: Proxy {}
+  98: Proxy {}
+  99: Proxy {}
+  [100 … 199]
+  100: {display_name: 'television', name: 't5_2qh6e'}
+  101: {display_name: 'feedthebeast', name: 't5_2v620'}
+  102: {display_name: 'PrequelMemes', name: 't5_3i60n'}
+  103: {display_name: 'sex', name: 't5_2qh3p'}
+  104: {display_name: 'pokemon', name: 't5_2qmeb'}
+  ```
+  los primeros subs me los esta detectando como `Proxy`:
+
+  ```
+  [0 … 99]
+  0: Proxy
+  [[Handler]]: null
+  [[Target]]: null
+  [[IsRevoked]]: true
+  ```

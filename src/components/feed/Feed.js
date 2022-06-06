@@ -7,32 +7,21 @@ import { SearchThunk, selectFeedResponse, failedToLoadFeed, isLoadingFeed } from
 import { useLocation } from 'react-router-dom'
 import { Thread } from '../thread/Thread'
 import { homeThunk } from './feedSlice'
+import { useUpdateEffect } from '../../utils/functions'
 
 export const Feed = () => {
   const dispatch = useDispatch()
   const searchTerm = useSelector(searchSelector)
   const feedResponse = useSelector(selectFeedResponse)
   const location = useLocation()
-  const [currentPath, setCurrentPath] = useState('')
 
-  // const useDidUpdateEffect = () => {
-  //   const didMountRef = useRef(false);
-  //   useEffect(() => {
-  //     if(didMountRef) {
-  //       dispatch(SearchThunk(searchTerm))
-  //     }
-  //     didMountRef.current = true
-  //   }, [searchTerm, dispatch]);
-  // }
-
-  useEffect(() => {
+  useUpdateEffect(() => {
     dispatch(SearchThunk(searchTerm))
-  }, [searchTerm, dispatch])
+  }, searchTerm)
 
-  useEffect(() => {
-    setCurrentPath(location.pathname)
-    dispatch(homeThunk(currentPath+'.json'))
-  }, [location, dispatch, currentPath])
+  useUpdateEffect(() => {
+    dispatch(homeThunk(location.pathname+'.json'))
+  }, location)
 
   //Estos ifs no estan funcionando
   if(isLoadingFeed===true) return <div>Loading...</div>
