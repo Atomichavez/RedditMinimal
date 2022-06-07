@@ -80,7 +80,7 @@ export const feedSlice = createSlice({
   }
 })
 
-export const selectFeedResponse = (state) => state.feed.feedResponse
-export const isLoadingFeed = (state) => state.feed.isLoadingFeed
-export const failedToLoadFeed = (state) => state.feed.failedToLoadFeed
+export const selectFeedResponse = state => state.feed.feedResponse
+export const isLoadingFeed = state => state.feed.isLoadingFeed
+export const failedToLoadFeed = state => state.feed.failedToLoadFeed
 export default feedSlice.reducer

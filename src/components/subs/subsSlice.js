@@ -9,7 +9,9 @@ export const SubThunk = createAsyncThunk(
     const threads = json.data.children.map(thread => {
       return ({
         display_name: thread.data.display_name,
-        name: thread.data.name
+        name: thread.data.name,
+        id: thread.data.id,
+        subscribers: thread.data.subscribers
       })
     })
     return threads
@@ -31,8 +33,8 @@ export const subsSlice = createSlice({
       .addCase(SubThunk.fulfilled, (state, action) => {
         state.isLoadingSubs = false
         state.failedToLoadSubs = false
-        console.log(state.subsResponse.concat(action.payload))
-        state.subsResponse = action.payload
+        console.log(state.subsResponse)
+        state.subsResponse = [...state.subsResponse, ...action.payload]
       })
       .addCase(SubThunk.rejected, (state) => {
         state.failedToLoadSubs = true

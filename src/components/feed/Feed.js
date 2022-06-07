@@ -13,6 +13,8 @@ export const Feed = () => {
   const dispatch = useDispatch()
   const searchTerm = useSelector(searchSelector)
   const feedResponse = useSelector(selectFeedResponse)
+  const isLoading = useSelector(isLoadingFeed)
+  const failedToLoad = useSelector(failedToLoadFeed)
   const location = useLocation()
 
   useUpdateEffect(() => {
@@ -23,17 +25,15 @@ export const Feed = () => {
     dispatch(homeThunk(location.pathname+'.json'))
   }, location)
 
-  //Estos ifs no estan funcionando
-  if(isLoadingFeed===true) return <div>Loading...</div>
-  if(failedToLoadFeed===true) return <div>Error loading feed</div>
-  if(!feedResponse) return null
+  if(isLoading===true) return <div>Loading...</div>
+  if(failedToLoad===true) return <div>Error loading feed</div>
 
   return(
     <div className={styles.feed}>
       {feedResponse.map(({id}) => {
         return(
-          <div>
-            <Thread key={id} id={id}/>
+          <div key={id}>
+            <Thread id={id}/>
           </div>
         )
       })}

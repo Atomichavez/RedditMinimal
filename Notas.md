@@ -160,7 +160,7 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
 - decidi utilizar el json de reddit.com/subreddits, no se que criterio usan para sortearlos pero da igual. habra que resolver la paginacion...
 - voy a almacenar el listado de SUBS en el global state
 - pendientes por resolver:
-  - paginacion de subs
+  - ~~paginacion de subs~~
   - first render `useEffect` deberia ser ignorado por `SearchThunk` y `homeThunk`
   - los states de `isLoading` y `failedToLoad` de `Feed` y `Search`
 - la paginacion de subs 
@@ -191,3 +191,12 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
   [[Target]]: null
   [[IsRevoked]]: true
   ```
+## 06/06/22
+  - problema de ayer solucionado con destructuring:
+  ` state.subsResponse = [...state.subsResponse, ...action.payload]`
+- ~~no se maneja lo de los loadings y failed desde routes? hoy trabajare en esto: los states de `isLoading` y `failedToLoad`~~ ya quedo `isLoading` y `failedToLoad`
+- ***Problema***: ~~se hace doble o triple request `onMount` de `Subs` y los anexa al array del status duplicados~~    
+  ***Resuelto*** desactive el `<React.StrictMode>` en `index,js` y se arreglo tanto eso como el Feed y Search actions que corrian `onMount`
+- que sigue? :
+  - agregarle key al `<Feed>`
+  - crear componente `<Thread>` y que se desplieguen los comments 
