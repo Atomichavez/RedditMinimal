@@ -12,7 +12,7 @@ export const Subs = () => {
   const isLoading = useSelector(isLoadingSubs)
   const failedToLoad = useSelector(failedToLoadSubs)
   const lastSub = subList[subList.length -1]
-
+  
   useEffect(() => {
     dispatch(SubThunk())
   }, [])

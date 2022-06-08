@@ -7,3 +7,13 @@ export const routes = {
   thread: (id) => `/thread/${id}`,
   subreddit: (id) => `/subreddit/${id}`
 }
+
+// export const routes = {
+//   all: () => '/',
+//   hot: () => '/filter/hot',
+//   new: () => '/filter/new',
+//   rising: () => '/filter/rising',
+//   top: () => '/filter/top',
+//   thread: (id) => `/thread/${id}`,
+//   subreddit: (id) => `/subreddit/${id}`
+// }

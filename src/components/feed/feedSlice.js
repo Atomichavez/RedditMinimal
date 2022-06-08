@@ -29,8 +29,8 @@ export const homeThunk = createAsyncThunk(
     const threads = json.data.children.map(thread => {
     return {
       id: thread.data.id,
-      title: thread.data.title,
       subreddit: thread.data.subreddit,
+      title: thread.data.title,
       author: thread.data.author,
       thumbnail: thread.data.thumbnail,
       created: thread.data.created,

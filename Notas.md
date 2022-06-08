@@ -198,5 +198,23 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
 - ***Problema***: ~~se hace doble o triple request `onMount` de `Subs` y los anexa al array del status duplicados~~    
   ***Resuelto*** desactive el `<React.StrictMode>` en `index,js` y se arreglo tanto eso como el Feed y Search actions que corrian `onMount`
 - que sigue? :
-  - agregarle key al `<Feed>`
+  - ~~agregarle key al `<Feed>`~~ YA
   - crear componente `<Thread>` y que se desplieguen los comments 
+- esta pasando algo curioso, componente `<Feed>` marca errores en consola de que `feedResponse.map` no jala, pero si commento lo siguiente:
+  ```
+        {feedResponse.map(({id}) => {
+        return(
+          <Link to={`/thread=${id}`} key={id}>
+            <Thread key={id} id={id}/>
+          </Link>
+        )
+      })}
+  ```
+  si funciona la pagina, y una vez lodeada, asumo que como ya el state se actualizo, me deja descommentar eso y funciona como si nada.
+  Solo que si le doy `console.log(feedResponse)` justo arriba del `return` si me imprime el objeto. pareciera que el problema es de asyncronizacion... probar con el <React.StrictMode>, esto empezo a fallar cuando lo quite
+
+## 07/06/22
+- el console.log de `<Feed>` NO imprime `feedResponse`, imprime esto:
+  ```
+  Proxy {0: {…}}
+  ```

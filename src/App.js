@@ -22,9 +22,6 @@ function App() {
           <Subs/>
           <Feed/>
         </div>
-        {/* <header className="App-header">
-          <Counter />
-        </header> */}
       </div>
     </Router>
   );

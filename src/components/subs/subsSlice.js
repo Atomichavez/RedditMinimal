@@ -33,7 +33,6 @@ export const subsSlice = createSlice({
       .addCase(SubThunk.fulfilled, (state, action) => {
         state.isLoadingSubs = false
         state.failedToLoadSubs = false
-        console.log(state.subsResponse)
         state.subsResponse = [...state.subsResponse, ...action.payload]
       })
       .addCase(SubThunk.rejected, (state) => {
