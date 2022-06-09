@@ -21,8 +21,8 @@ export const SearchThunk = createAsyncThunk(
   }
 )
 
-export const homeThunk = createAsyncThunk(
-  'feed/homeThunk',
+export const FeedThunk = createAsyncThunk(
+  'feed/FeedThunk',
   async (homePath) => {
     const response = await fetch(`https://www.reddit.com${homePath}`)
     const json = await response.json()
@@ -64,16 +64,16 @@ export const feedSlice = createSlice({
         state.isLoadingFeed = false
         state.failedToLoadFeed = true
       })
-      .addCase(homeThunk.pending, (state) => {
+      .addCase(FeedThunk.pending, (state) => {
         state.isLoadingFeed = true
         state.failedToLoadFeed = false
       })
-      .addCase(homeThunk.fulfilled, (state, action) => {
+      .addCase(FeedThunk.fulfilled, (state, action) => {
         state.isLoadingFeed = false
         state.failedToLoadFeed = false
         state.feedResponse = action.payload
       })
-      .addCase(homeThunk.rejected, (state) => {
+      .addCase(FeedThunk.rejected, (state) => {
         state.isLoadingFeed = false
         state.failedToLoadFeed = true
       })

@@ -114,9 +114,9 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
 
 ## 04/06/22
 - ~~tengo un problema con el **reddit/all**, al hacer un request del feed con router para cualquier otra categoria se generan dos actions, una para la categoria seleccionada y la otra para **all**. creo que usando router switch para que solo se genere una vez puedo resolverlo~~ solucionado con `<NavLink exact to=''>`
-- al generar homeThunk action, cuando ya hay un feed loaded, genera un action para el loaded feed y para el requested feed. A de ser un problema del `useEffect()`. Al inicializar el app hace 5 requests: 
+- al generar FeedThunk action, cuando ya hay un feed loaded, genera un action para el loaded feed y para el requested feed. A de ser un problema del `useEffect()`. Al inicializar el app hace 5 requests: 
   - 2 search requests 
-  - 3 homethunk
+  - 3 FeedThunk
 - vi aqui una solucion para no correr el useEffect en el first render, pero no funciono https://dev.to/calebbenjin/how-to-prevent-useeffect-from-running-on-initial-render-in-react-22a8 
 
   ```
@@ -161,7 +161,7 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
 - voy a almacenar el listado de SUBS en el global state
 - pendientes por resolver:
   - ~~paginacion de subs~~
-  - first render `useEffect` deberia ser ignorado por `SearchThunk` y `homeThunk`
+  - first render `useEffect` deberia ser ignorado por `SearchThunk` y `FeedThunk`
   - los states de `isLoading` y `failedToLoad` de `Feed` y `Search`
 - la paginacion de subs 
   - https://www.reddit.com/subreddits/?count=25&after=t5_2qo4s
@@ -218,3 +218,13 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
   ```
   Proxy {0: {…}}
   ```
+- me ayudo Ramon, faltaba `if(feedResponse) return` en el `<Feed>`, el problema es q se estaba rendereando primero el componente antes de que se actualizara el state. como que los IFS no estaban jalando bien (valdra la pena subir la duda a stackoverflow?? )
+- ~~necesito resolver con react router que onMount me mande a `/hot`~~ ya jala, no tuve que hacer nada porque por default reddit.com/.json te manda a /HOT
+
+## 08/06/22
+
+- ***MILESTONE: `<Threads>`***
+- la info del Thread no esta en el `fetch` de `FeedThunk`, habra que hacer otro fe`tch directamente al thread
+- para hacer `fetch` del Thread es de la siguiente manera:
+  `https://www.reddit.com/r/${subreddit}/comments/${id}`
+- pendiente en app.js hacer routes para separar cuando voy a renderear `/feed/hot` y `/thread/id` OJO no deje una version jalando porque deje a medias el app.js 

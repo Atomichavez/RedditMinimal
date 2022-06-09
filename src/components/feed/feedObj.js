@@ -10,15 +10,3 @@ let obj = {
     num_comments: 1468
   }
 }
-
-// export const threadObj =
-// {
-//   id: thread.data.id,
-//   title: thread.data.title,
-//   subreddit: thread.data.subreddit,
-//   author: thread.data.author,
-//   thumbnail: thread.data.thumbnail,
-//   created: thread.data.created,
-//   score: thread.data.score,
-//   num_comments: thread.data.num_comments
-// }
