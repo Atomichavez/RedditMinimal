@@ -1,5 +1,5 @@
 # Bitacora de avance
-
+referencias: https://discuss.codecademy.com/t/about-the-portfolio-project-reddit-project-category/535748
 ## 25/05/22
 - el searchbar ya actualiza el status global de searchValue cuando le doy enter
 - no pude agregar el searchValue al `<Counter>` como `<p>` porque me marca un error de que no puedo tener objetos en html
@@ -114,9 +114,9 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
 
 ## 04/06/22
 - ~~tengo un problema con el **reddit/all**, al hacer un request del feed con router para cualquier otra categoria se generan dos actions, una para la categoria seleccionada y la otra para **all**. creo que usando router switch para que solo se genere una vez puedo resolverlo~~ solucionado con `<NavLink exact to=''>`
-- al generar FeedThunk action, cuando ya hay un feed loaded, genera un action para el loaded feed y para el requested feed. A de ser un problema del `useEffect()`. Al inicializar el app hace 5 requests: 
+- al generar HomePageThunk action, cuando ya hay un feed loaded, genera un action para el loaded feed y para el requested feed. A de ser un problema del `useEffect()`. Al inicializar el app hace 5 requests: 
   - 2 search requests 
-  - 3 FeedThunk
+  - 3 HomePageThunk
 - vi aqui una solucion para no correr el useEffect en el first render, pero no funciono https://dev.to/calebbenjin/how-to-prevent-useeffect-from-running-on-initial-render-in-react-22a8 
 
   ```
@@ -161,7 +161,7 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
 - voy a almacenar el listado de SUBS en el global state
 - pendientes por resolver:
   - ~~paginacion de subs~~
-  - first render `useEffect` deberia ser ignorado por `SearchThunk` y `FeedThunk`
+  - first render `useEffect` deberia ser ignorado por `SearchThunk` y `HomePageThunk`
   - los states de `isLoading` y `failedToLoad` de `Feed` y `Search`
 - la paginacion de subs 
   - https://www.reddit.com/subreddits/?count=25&after=t5_2qo4s
@@ -224,7 +224,35 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
 ## 08/06/22
 
 - ***MILESTONE: `<Threads>`***
-- la info del Thread no esta en el `fetch` de `FeedThunk`, habra que hacer otro fe`tch directamente al thread
+- la info del Thread no esta en el `fetch` de `HomePageThunk`, habra que hacer otro fe`tch directamente al thread
 - para hacer `fetch` del Thread es de la siguiente manera:
   `https://www.reddit.com/r/${subreddit}/comments/${id}`
 - pendiente en app.js hacer routes para separar cuando voy a renderear `/feed/hot` y `/thread/id` OJO no deje una version jalando porque deje a medias el app.js 
+- estoy trabajando en HEAD que esta detached, necesito resolver esto (git)
+
+## 14/06/22
+
+- a ver ya le di push a github el newbranch. falta:
+  - reemplazar `master` con `newbranch`
+  - push `master`
+  - delete `newbranch`en local
+  - delete `newbranch` en `origin`
+- ~~~ya jala el App.js route de `<Feed>` y `<Thread>`~~~
+- falta hacer el homepage `/feed/hot`
+- no esta jalando el `<Feed>` cuando selecciono un `sub` porque el path es diferente que el de los `Listings`: `/r/sub` contra `/feed/listing` al parecer tengo que hacer otra funcion de utils o ver si puedo modificar la misma para que aplique en ambos casos. el problema esta en Subs.js
+
+## 15/06/22
+- referencias: https://www.robinwieruch.de/react-router-descendant-routes/
+- el path de reddit para fetch es:
+  - subs es     `reddit.com/r/Monterrey/`
+  - listing es  `reddit.com/hot/`
+  - thread es   `reddit.com/r/interestingasfuck/comments/vd5sl8/`
+- estaria neat poder usar los mismos routes ***IDENTICOS***
+
+```javascript
+<Route path='/:listing' element={<Feed/>}/>
+<Route path='/r/:sub' element={<Feed/>}/>
+<Route path='/r/:sub/comments/:subId' element={<Thread/>}/>
+```
+- ya jalan las rutas `reddit.com/subreddit/comments/threadId`
+- falta arreglar la de `reddit.com/rising/comments/threadId`

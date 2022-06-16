@@ -20,12 +20,9 @@ function App() {
           <Popular/>
           <Subs/>
           <Routes>
-            <Route path='/'>
-              <Feed/>
-            </Route>
-            <Route path='/thread'>
-              <Thread/>
-            </Route>
+            <Route path=':listing' element={<Feed/>}/>
+            <Route path='r/:sub' element={<Feed/>}/>
+            <Route path='r/:sub/comments/:subId' element={<Thread/>}/>
           </Routes>
         </div>
       </div>

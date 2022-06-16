@@ -5,8 +5,8 @@ import { searchSelector } from '../search/searchSlice'
 import { SearchThunk, selectFeedResponse, failedToLoadFeed, isLoadingFeed } from './feedSlice'
 import { useLocation, Link } from 'react-router-dom'
 import { FeedThread } from './feedThread'
-import { FeedThunk } from './feedSlice'
-import { useUpdateEffect } from '../../utils/functions'
+import { HomePageThunk } from './feedSlice'
+import { useUpdateEffect, feedPathParsing } from '../../utils/functions'
 
 export const Feed = () => {
   const dispatch = useDispatch()
@@ -21,18 +21,17 @@ export const Feed = () => {
   }, searchTerm)
 
   useEffect(() => {
-    dispatch(FeedThunk(location.pathname+'.json'))
+    dispatch(HomePageThunk(location.pathname+`.json`))
   }, [location])
 
-  
   if(isLoading===true) return <div>Loading...</div>
   if(failedToLoad===true) return <div>Error loading feed</div>
   
   if(feedResponse) return(
     <div className={styles.feed}>
-      {feedResponse.map(({id}) => {
+      {feedResponse.map(({id, subreddit}) => {
         return(
-          <Link to={`/thread=${id}`} key={id}>
+          <Link to={`comments/${id}`} key={id}>
             <FeedThread key={id} id={id}/>
           </Link>
         )

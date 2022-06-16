@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styles from '../styles.module.css'
-import { useUpdateEffect } from '../../utils/functions'
 import { selectSubsResponse, SubThunk } from './subsSlice'
 import { NavLink } from 'react-router-dom'
 import { isLoadingSubs, failedToLoadSubs } from './subsSlice'
@@ -28,7 +27,7 @@ export const Subs = () => {
     <div className={styles.subs}>
       {subList.map(sub => 
         <NavLink 
-          to={`/r/${sub.display_name}`} 
+          to={`r/${sub.display_name}`} 
           className={styles.subTitle}
           key={sub.id}>
             {sub.display_name}

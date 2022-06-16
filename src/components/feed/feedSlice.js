@@ -21,10 +21,10 @@ export const SearchThunk = createAsyncThunk(
   }
 )
 
-export const FeedThunk = createAsyncThunk(
-  'feed/FeedThunk',
+export const HomePageThunk = createAsyncThunk(
+  'feed/HomePageThunk',
   async (homePath) => {
-    const response = await fetch(`https://www.reddit.com${homePath}`)
+    const response = await fetch(`https://www.reddit.com/${homePath}`)
     const json = await response.json()
     const threads = json.data.children.map(thread => {
     return {
@@ -35,7 +35,8 @@ export const FeedThunk = createAsyncThunk(
       thumbnail: thread.data.thumbnail,
       created: thread.data.created,
       score: thread.data.score,
-      num_comments: thread.data.num_comments
+      num_comments: thread.data.num_comments,
+      selected: false
     }
   })
     return threads
@@ -64,16 +65,16 @@ export const feedSlice = createSlice({
         state.isLoadingFeed = false
         state.failedToLoadFeed = true
       })
-      .addCase(FeedThunk.pending, (state) => {
+      .addCase(HomePageThunk.pending, (state) => {
         state.isLoadingFeed = true
         state.failedToLoadFeed = false
       })
-      .addCase(FeedThunk.fulfilled, (state, action) => {
+      .addCase(HomePageThunk.fulfilled, (state, action) => {
         state.isLoadingFeed = false
         state.failedToLoadFeed = false
         state.feedResponse = action.payload
       })
-      .addCase(FeedThunk.rejected, (state) => {
+      .addCase(HomePageThunk.rejected, (state) => {
         state.isLoadingFeed = false
         state.failedToLoadFeed = true
       })

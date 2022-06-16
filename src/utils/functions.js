@@ -7,3 +7,11 @@ export const useUpdateEffect = (effect, deps = []) => {
     else isFirstMount.current = false
   }, [deps]);
 }
+
+export const feedPathParsing = (location) => {
+  return location.split('/')[2]
+}
+
+export const subsPathParsing = (location) => {
+  return location.split('/')[3]
+}
