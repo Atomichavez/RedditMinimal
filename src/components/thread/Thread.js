@@ -22,14 +22,6 @@ export const Thread = () => {
   if(threadResponse) return(
     <div className={styles.feed}>
       <p>This is a thread</p>
-      <p>{threadResponse}</p>
-      {/* {feedResponse.map(({id}) => {
-        return(
-          <Link to={`/thread/id=${id}`} key={id}>
-            <FeedThread key={id} id={id}/>
-          </Link>
-        )
-      })} */}
     </div>
   )
 }

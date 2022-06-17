@@ -237,7 +237,7 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
   - push `master`
   - delete `newbranch`en local
   - delete `newbranch` en `origin`
-- ~~~ya jala el App.js route de `<Feed>` y `<Thread>`~~~
+- ~~ya jala el App.js route de `<Feed>` y `<Thread>`~~
 - falta hacer el homepage `/feed/hot`
 - no esta jalando el `<Feed>` cuando selecciono un `sub` porque el path es diferente que el de los `Listings`: `/r/sub` contra `/feed/listing` al parecer tengo que hacer otra funcion de utils o ver si puedo modificar la misma para que aplique en ambos casos. el problema esta en Subs.js
 
@@ -254,5 +254,38 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
 <Route path='/r/:sub' element={<Feed/>}/>
 <Route path='/r/:sub/comments/:subId' element={<Thread/>}/>
 ```
-- ya jalan las rutas `reddit.com/subreddit/comments/threadId`
-- falta arreglar la de `reddit.com/rising/comments/threadId`
+- ~~ya jalan las rutas `reddit.com/subreddit/comments/threadId`~~
+- ~~falta arreglar la de `reddit.com/rising/comments/threadId`~~
+
+## 16/05/22
+- ya esta el routing de `<Threads>`, lo que sigue es fetch la info de los comments, esta tricky porque van en casdada, y los ejemplos de internet de esta app nada mas agarran los childs de mero arriba e ignoran los comments de comments.
+- **Estructura de `ThreadObj.json`**  
+  estoy usando estos links  
+  https://www.reddit.com/r/IdiotsInCars/comments/vdw1il/my_wife_caught_footage_of_a_red_light_runner_on/  
+  https://www.reddit.com/r/Idiotswithguns/comments/rlns90/banning_for_repost_effective_immediately_if/  
+
+    ```js
+  [
+    {data: //Thread title
+      {children: [
+        {
+          kind: 't3',
+          data: {
+            title: "My wife caught footage..."
+    }}]}},
+    {
+      kind:'Listing'  //Thread comments
+      data:{
+        children: [
+            {
+              kind: 't1',  //Parent comment
+              data: {
+                replies: 
+                  {
+                    kind: 'Listing',
+                    data:{
+                      children: 
+                      [
+                        {Child}  //Child object
+  ]}}}}]}}]
+  ```

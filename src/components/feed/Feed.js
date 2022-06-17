@@ -31,7 +31,7 @@ export const Feed = () => {
     <div className={styles.feed}>
       {feedResponse.map(({id, subreddit}) => {
         return(
-          <Link to={`comments/${id}`} key={id}>
+          <Link to={`/r/${subreddit}/comments/${id}`} key={id}>
             <FeedThread key={id} id={id}/>
           </Link>
         )

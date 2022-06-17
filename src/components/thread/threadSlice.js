@@ -23,9 +23,10 @@ export const threadSlicer = createSlice({
         state.isLoadingThread = true
         state.failedToLoadThread = false
       })
-      .addCase(threadThunk.fulfilled, (state) => {
+      .addCase(threadThunk.fulfilled, (state, action) => {
         state.isLoadingThread = false
         state.failedToLoadThread = false
+        state.threadResponse = action.payload
       })
       .addCase(threadThunk.rejected, (state) => {
         state.isLoadingThread = false
