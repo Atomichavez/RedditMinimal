@@ -13,7 +13,7 @@ export const threadThunk =createAsyncThunk(
 export const threadSlicer = createSlice({
   name: 'thread',
   initialState: {
-    threadResponse: [],
+    threadResponse: '',
     isLoadingThread: false,
     failedToLoadThread: false
   },

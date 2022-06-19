@@ -279,6 +279,12 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
         children: [
             {
               kind: 't1',  //Parent comment
+              body: 'comment text',
+              author: 'author name',
+              id: 'id',
+              created: '10 digit number',
+              ups: 'upvote number',
+              subreddit: 'sub',
               data: {
                 replies: 
                   {
@@ -289,3 +295,15 @@ Warning: Each child in a list should have a unique "key" prop. Check the render 
                         {Child}  //Child object
   ]}}}}]}}]
   ```
+
+## 18/06/22
+- ~~en `<Thread>` se esta corriendo el return antes de que threadResponse sea fulfilled entonces `onMount` el app tiene threadResponse `null` y crashea al intentar desplegar el componente.... no es para eso el `if(threadResponse)` ?~~ el pedo era que initialState de threadResponse lo tenia como un array vacio y debia ser `''` para que el if no detectara como `nullish`
+- como le hago para pasarle el state a `<Comment>` si esta nesteado?  
+esta el 
+  - `parent_id`
+  - `link_id`
+  - `id` con el id puedo navegar directo a un comment de un thread  
+- I know the solution...recursive function. check  
+https://replit.com/@DavidChavez14/WIP#recursiveLoop.js
+
+

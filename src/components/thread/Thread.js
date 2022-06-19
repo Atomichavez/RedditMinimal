@@ -18,10 +18,14 @@ export const Thread = () => {
   
   if(isLoading===true) return <div>Loading...</div>
   if(failedToLoad===true) return <div>Error loading feed</div>
-  
-  if(threadResponse) return(
+
+  if(threadResponse) {
+    return(
     <div className={styles.feed}>
-      <p>This is a thread</p>
+      <h1>{threadResponse[0].data.children[0].data.title}</h1>
+      {threadResponse[1].data.children.map(child => {
+        return(<p>{child.data.body}</p>)
+      })}
     </div>
-  )
+  )}
 }
