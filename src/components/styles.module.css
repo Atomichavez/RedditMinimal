@@ -15,6 +15,12 @@
   margin: 10px auto
 }
 
+.threadComment {
+  border: solid 1px #ff00ff;
+  margin: 10px auto;
+  text-align: left;
+}
+
 .subTitle {
   display: inline;
   padding: 0px 10px;

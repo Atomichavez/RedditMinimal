@@ -5,7 +5,6 @@ export const threadThunk =createAsyncThunk(
   async (threadPath) => {
     const response = await fetch(`https://www.reddit.com/${threadPath}`)
     const json = await response.json()
-    console.log(json)
     return json
   }
 )

@@ -306,4 +306,28 @@ esta el
 - I know the solution...recursive function. check  
 https://replit.com/@DavidChavez14/WIP#recursiveLoop.js
 
+## 19/06/22
+
+- en el children array, cuando hay muchos replies, el ultimo children no es un comment, sino un array que contiene el id de los comments que faltan por desplegar. si le picas 'more' te despiega mas. tiene la siguiente estructura:
+```js
+{
+  kind: 'more',
+  data: {
+    count: 13,
+    id: 'icz6uqo', //este es el ID del primer child del array
+    parent_id: 't1_icyilff',
+    depth: 9,
+    children: [ id, id, id ],
+  }
+}
+```
+- con threads muy populares hay problemas de comments vacios, tipo este:  
+http://localhost:3000/r/nextfuckinglevel/comments/vfxv14 
+- los cuadros vacios son lo siguiente:
+  - 'Continue this thread ->'
+  - X more replies
+- aparte hay una funcionalidad de `more children` que hay que implementar para la paginacion, creo que se llama lazy loading??
+- revisar esto:  
+  https://www.reddit.com/r/redditdev/comments/o1w7b/how_do_i_get_more_comments_in_json_format/
+
 

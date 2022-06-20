@@ -16,6 +16,23 @@ export const Thread = () => {
     dispatch(threadThunk(location.pathname+`.json`))
   }, [location])
   
+  let comments = []
+  let indent = 0
+  
+  const loopComments = (commentArr) => {
+    commentArr.map(comment => {
+      if(comment.data.replies) {
+        comments.push({comment: comment.data.body, indent: indent, id: comment.data.id})
+        indent += 1
+        loopComments(comment.data.replies.data.children)
+      } else {
+        comments.push({comment: comment.data.body, indent: indent, id: comment.data.id})
+        indent = 0
+      }
+    })
+    return comments
+  }
+
   if(isLoading===true) return <div>Loading...</div>
   if(failedToLoad===true) return <div>Error loading feed</div>
 
@@ -23,8 +40,15 @@ export const Thread = () => {
     return(
     <div className={styles.feed}>
       <h1>{threadResponse[0].data.children[0].data.title}</h1>
-      {threadResponse[1].data.children.map(child => {
-        return(<p>{child.data.body}</p>)
+      {loopComments(threadResponse[1].data.children).map(obj=>{
+        return(
+          <div 
+            key={obj.id} 
+            className={styles.threadComment} 
+            style={{'paddingLeft':(obj.indent*40)+'px'}}>
+            <p>{obj.comment}</p>
+          </div>
+        )
       })}
     </div>
   )}
